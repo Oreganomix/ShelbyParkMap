@@ -1,0 +1,248 @@
+:root {
+  --lightGreen: #c0d470;
+  --middleGreen: #94c263;
+  --darkGreen: #78a158;
+  --darkestGreen: #67835c;
+  --lightBrown: #dcb98a;
+  --middleBrown: #c49a6c;
+  --darkBrown: #aa7959;
+  --darkestBrown: #90625d;
+  --lightGrey: #c1c8b9;
+  --middleGrey: #9da89a;
+  --darkGrey: #818b83;
+  --darkestGrey: #549059;
+  --accentOrange: #e58b52;
+  --accentBrown: #7e3b1d;
+  --backgroundColor: #f8f5e7;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  background-color: var(--backgroundColor); /* warm paper background */
+  overflow: hidden; /* important: no page scrolling, we scale instead */
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   look good on dif screens
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#scaleWrapper {
+  position: fixed;
+  inset: 0; /* fill the viewport */
+  background-color: var(--backgroundColor); /* same as your body bg */
+  overflow: hidden;
+}
+
+#appFrame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2560px; /* match w+h to main.js and index.html appFrame */
+  height: 1279px;
+  box-sizing: border-box;
+  transform-origin: center;
+  /* border for testing - comment out */
+  /* border: 2px solid magenta; */
+}
+
+#viewDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Zoom!
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#zoomControls {
+  position: absolute;
+  top: 225px;
+  left: 20px;
+  z-index: 10;
+  padding: 10px 12px;
+  background-color: var(--lightBrown);
+  border: 3px solid var(--middleBrown);
+  border-radius: 10px;
+  box-shadow: -4px 5px 0 var(--darkBrown);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transform: scale(1.3);
+  transform-origin: top left;
+}
+.zoom-label {
+  font-size: 25px;
+  font-weight: 800;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: 1px;
+  color: #9f7365; /* rich reddish-brown */
+  text-shadow: 2px 2px #e8cfa6; /* soft cream shadow */
+}
+.zoom-button-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+/* buttons - round */
+.zoom-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid #f3e5c2; /* border + numbers */
+  background-color: #e8cfa6; /* warm orange */
+  box-shadow: 0 0 0 1px #c49b71 /* outline */, -2px 4px 1px #b68962;/* shadow */
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #b68962; /* matching brown */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.zoom-btn:hover {
+  background-color: #f3d9b5; /* pastel peach highlight */
+}
+.zoom-btn:active {
+  transform: translateY(2px);
+  background-color: #b68962 !important;
+  box-shadow: 0 0 0 2px #b68962, /* outline */
+}
+/* highlight selected button */
+.zoom-btn.active {
+  color: #78a158 !important;
+}
+.zoom-btn.active, .zoom-btn.active:hover {
+  color: #a4c263 !important;
+}
+
+/* ~~~~~~sprayground gif? idk i didnt label this when i put it in here now i forgot~~~~~~~ */
+#gifOverlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 50;
+}
+#gifOverlay img {
+  width: 90px;
+  height: auto;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   I'm Lost!
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#imLost {
+  position: absolute;
+  top: 400px;
+  left: 20px;
+  z-index: 10;
+  padding: 10px 12px;
+  background-color:  var(--lightBrown);
+  border: 3px solid var(--middleBrown);
+  border-radius: 10px;
+  box-shadow: -3px 5px 0 var(--darkBrown);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transform: scale(1.3);
+  transform-origin: top left;
+}
+/* button - round */
+.lost-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 60%;
+  padding: 0;
+  background-color: #bd7575; /* button fill */
+  border: 5px solid #e0ad9e; /* button outline */
+  color: #e0ad9e;
+  text-shadow: 2px 2px #965270; /* text color */
+  box-shadow: 0 0 0 1px #bd7575/* outline */, -3px 5px 1px #b68962; /* shadow */
+  transition: all 0.1s ease;
+}
+.lost-btn:hover {
+  background-color: #D48A8A; /* hover fill */
+}
+.lost-btn:active {
+  background-color: #965270 !important;
+  transform: translate(-1px, 2px);
+  box-shadow: 0 0 0 2px #bd7575; /* outline */
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Shelby Park Title Box
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#titlePanel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  transform: scale(0.6);
+  transform-origin: top left;
+  z-index: 20;
+  padding: 8px 12px;
+  background-color: var(--lightBrown);
+  border: 7px solid var(--middleBrown);
+  border-radius: 10px;
+  box-shadow: -10px 10px 0 var(--darkBrown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  min-height: 70px;
+}
+#titleImage {
+  max-width: 900px;
+  max-height: auto;
+  object-fit: contain;
+  display: block;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Googly Eye Ballz
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#eyesContainer {
+  position: absolute;
+  top: 700px;
+  left: 170px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none; /* don't block stuff */
+  z-index: 80;
+}
+/* each eyeball */
+#eyesContainer .eye {
+  width: 70px;
+  height: 60px;
+  border-radius: 50%;
+  background: #fdfdf8;
+  border: 3px solid #2a241f;
+  box-shadow: -2px 3px 0 #6b3838;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+/* pupils */
+#eyesContainer .pupil {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3b1e1e;
+  transform: translate(0, 0);
+  transition: transform 0.03s linear;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Flower
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#flowerStem {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+  width: auto;
+  height: 650px; /* change size */
+  z-index: 50;
+}

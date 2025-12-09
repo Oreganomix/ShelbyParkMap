@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shelby Park Map</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- STYLES -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ArcGIS Maps SDK (defines global "require") -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.30/"></script>
+</head>
+
+<body>
+
+<div id="scaleWrapper">
+    <div id="appFrame">
+		
+<div id="viewDiv">
+  <div id="gifOverlay">
+    <img src="assets/maybe/sprayground.gif" id="sprayGif">
+  </div>
+</div>
+
+	<div id="eyesContainer">
+  <div class="eye">
+    <div class="pupil"></div>
+  </div>
+  <div class="eye">
+    <div class="pupil"></div>
+  </div>
+</div>
+
+	<audio id="squickSound" src="assets/squick_1.wav" preload="auto"></audio>
+
+	<img src="assets/icons/flowerstem.png" id="flowerStem">
+	
+<div id="zoomControls">
+  <div class="zoom-label">Zoom!</div>
+  <div class="zoom-button-row">
+    <button id="zoom1" class="zoom-btn">1</button>
+    <button id="zoom2" class="zoom-btn">2</button>
+  </div>
+</div>
+	
+<div id="imLost">
+  <div class="zoom-button-row">
+    <button id="lostBtn" class="zoom-btn lost-btn">I'm Lost!</button>
+  </div>
+</div>
+
+<div id="titlePanel">
+  <img src="assets/icons/shelbytitle.png" id="titleImage">
+</div>
+		
+</div>
+</div>
+	
+<!-- IMPORTANT: must come AFTER the ArcGIS script --> 
+<script src="main.js?v=3"></script>
+
+<!-- NEW: scale the whole appFrame to fit the screen -->
+<script>
+  function fitAppToScreen() {
+    const app = document.getElementById('appFrame');
+    if (!app) return;
+
+    const designWidth = 2560;   // match main.js and style.css appFrame
+    const designHeight = 1279;   // this too
+
+    const scaleX = window.innerWidth / designWidth;
+    const scaleY = window.innerHeight / designHeight;
+    const scale = Math.min(scaleX, scaleY);
+
+   app.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+  }
+
+  window.addEventListener('load', fitAppToScreen);
+  window.addEventListener('resize', fitAppToScreen);
+</script>
+
+</body>
+</html>
+
