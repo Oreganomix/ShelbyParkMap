@@ -1,10 +1,19 @@
-// =========================================
-// Shelby Park Map
-// ArcGIS JS 4.30
-// - Custom 2-step zoom
-// - No scroll/dblclick/keyboard zoom
-// - Sprayground GIF anchored to fixed coords
-// =========================================
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//   Squick Sound + map setup
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let isMuted = false;
+
+function playSquick() {
+  if (isMuted) return;
+
+  var squick = document.getElementById("squickSound");
+  if (!squick) return;
+
+  squick.playbackRate = 0.9 + Math.random() * 0.3;
+  squick.currentTime = 0;
+  squick.play();
+}
 
 require([
   "esri/Map",
@@ -14,7 +23,7 @@ require([
 ], function (Map, MapView, FeatureLayer, Point) {
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//   Colors
+//   colors but i started losing track of them
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   var colors = {
     lightGreen: "#c0d470",
@@ -153,7 +162,7 @@ require([
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   var buildingLayer = new FeatureLayer({
     portalItem: {
-      id: "0e1089d0f9fc445c9001e61ede137fc1"
+      id: "aacd5160a6444afe8cab9eb038db8ae4"
     },
     renderer: {
       type: "simple",
@@ -185,9 +194,264 @@ require([
       id: "65009d8ed80b40d49a7702e17071230d"
     }
   });
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//   Detail Layer
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var detailsLayer = new FeatureLayer({
+  url: "https://services1.arcgis.com/cRvLdSPAsRupRo7I/arcgis/rest/services/details/FeatureServer/0",
+
+renderer: {
+  type: "unique-value",
+  field: "detailID",
+
+  uniqueValueInfos: [
+    {
+      value: "basketball 1",
+      label: "Basketball",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/basketball.png",
+        width: "10px",
+        height: "10px"
+      }},
+    {
+      value: "car #1",
+      label: "car1",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/car1.png",
+        width: "20px",
+        height: "30px",
+        yoffset: 3
+      }},
+    {
+      value: "car #2",
+      label: "car2",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/car2.png",
+        width: "20px",
+        height: "30px",
+        yoffset: 3
+      }},
+    {
+      value: "car #3",
+      label: "car3",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/car3.png",
+        width: "15px",
+        height: "30px",
+        yoffset: 3
+      }},
+    {
+      value: "dumpster #1",
+      label: "dumpster",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/dumpster.gif",
+        width: "30px",
+        height: "30px",
+        yoffset: 10
+      }},
+    {
+      value: "playground #2",
+      label: "playground2",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/playground2.png",
+        width: "50px",
+        height: "50px",
+        yoffset: 4,
+      }},
+    {
+      value: "playground #4",
+      label: "playground4",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/playground4.png",
+        width: "50px",
+        height: "50px",
+        yoffset: 3,
+        angle: 30,
+      }},
+    {
+      value: "picnic 1",
+      label: "picnic1",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/picnic3.png",
+        width: "50px",
+        height: "50px",
+        yoffset: 3,
+        angle: 0,
+      }},
+    {
+      value: "picnic 2",
+      label: "picnic2",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/picnic4.png",
+        width: "50px",
+        height: "50px",
+        yoffset: 3,
+        angle: 0,
+      }},
+    {
+      value: "cone 1",
+      label: "cone1",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/cone1.png",
+        width: "15px",
+        height: "15px",
+        yoffset: -3,
+        angle: 0,
+      }},
+    {
+      value: "bird 1",
+      label: "bird1",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/birdright.gif",
+        width: "25px",
+        height: "25px",
+        yoffset: -3,
+        angle: 0,
+      }},
+    {
+      value: "picnic 3",
+      label: "picnic3",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/picnic2.png",
+        width: "25px",
+        height: "25px",
+        yoffset: -3,
+        angle: 30,
+      }},
+    {
+      value: "soccer ball",
+      label: "soccer",
+      symbol: {
+        type: "picture-marker",
+        url: "assets/maybe/soccer.png",
+        width: "25px",
+        height: "25px",
+        yoffset: -3,
+        angle: 0,
+      }},
+
+
+  ]
+}
+});
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//   Assets Layer
+//   Assets Layer - value by AssetID
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  var assetsLayer2 = new FeatureLayer({
+    portalItem: {
+      id: "5698df6506c74fd9b8c5ef6f5f43e090"
+    },
+    renderer: {
+      type: "unique-value",
+      field: "assetID",
+      uniqueValueInfos: [
+        {
+          value: "Hoop #1",
+          label: "hoop1",
+          symbol: {
+            type: "picture-marker",
+            url: "assets/maybe/hoop2.png",
+            width: "40px",
+            height: "40px",
+            yoffset: 2,
+          }
+        },
+      {
+          value: "Hoop #2",
+          label: "hoop2",
+          symbol: {
+            type: "picture-marker",
+            url: "assets/maybe/hoop1.png",
+            width: "40px",
+            height: "40px",
+            yoffset: 16,
+        }
+      },
+      {
+          value: "Goal #1",
+          label: "Soccer Goal!",
+          symbol: {
+            type: "picture-marker",
+            url: "assets/maybe/goal1.png",
+            width: "60px",
+            height: "40px",
+            yoffset: 0,
+            angle: -90
+        }
+      },
+      {
+          value: "Goal #2",
+          label: "Soccer Goal!",
+          symbol: {
+            type: "picture-marker",
+            url: "assets/maybe/goal1.png",
+            width: "60px",
+            height: "40px",
+            yoffset: 0,
+            angle: 90
+        }
+      },
+      {
+          value: "Picnic #2",
+          label: "Picnic Table!",
+          symbol: {
+            type: "picture-marker",
+            url: "assets/maybe/picnic.png",
+            width: "25px",
+            height: "25px",
+            yoffset: 0,
+            xoffset: -10,
+            angle: 85
+        }
+      },
+      {
+          value: "Picnic #3",
+          label: "Picnic Table!",
+          symbol: {
+            type: "picture-marker",
+            url: "assets/maybe/picnic2.png",
+            width: "25px",
+            height: "25px",
+            yoffset: 18,
+            xoffset: -26,
+            angle: 75
+        }
+      },
+      //{
+      //I COULDNT GET THIS TO WORK AND I DID NOT WANT TO DO ALL THOSE BENCHES INDIVUALLY SO I GOT MAD AND MOVED ON
+          //value: ["Bench #22", "Bench #25", "Bench #24", "Bench #23", "Bench #26", "Bench #27", "Bench #28", "Bench #29"],
+         // value: ["Bench #22", "Bench #25"],
+          //label: "Bench!",
+         // symbol: {
+          //  type: "picture-marker",
+          //  url: "assets/maybe/benchhorizontal.png",
+          //  width: "25px",
+          //  height: "25px",
+          //  yoffset: 0,
+          //  xoffset: 0,
+           // angle: 0
+       // }
+     // },
+
+    ]
+  }
+});
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//   Assets Layer - value by asset 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   var assetsLayer = new FeatureLayer({
     portalItem: {
@@ -197,68 +461,18 @@ require([
       type: "unique-value",
       field: "asset",
 
-      defaultSymbol: {
-        type: "simple-marker",
-        size: 9,
-        color: "#f0463a",
-        outline: {
-          color: "#20110f",
-          width: 1.5
-        }
-      },
-      defaultLabel: "Other asset",
-
       uniqueValueInfos: [
         {
-          value: "Picnic",
-          label: "Picnic Table",
-          symbol: {
-            type: "picture-marker",
-            url: "assets/maybe/picnic.png",
-            width: "24px",
-            height: "24px"
-          }
-        },
-						 
-        {
           value: "Bench",
-          label: "Bench",
+          label: "Bench!",
           symbol: {
             type: "simple-marker",
             style: "circle",
-            size: 9,
-            color: colors.middleGreen,
-            outline: {
-              color: "#20110f",
-              width: 1.5
-            }
-          }
-        },
-        {
-          value: "Trashcan",
-          label: "Trashcan",
-          symbol: {
-            type: "simple-marker",
-            style: "circle",
-            size: 9,
-            color: "#1f1f1f", // dark inner fill
-            outline: {
-              color: "#6b6b6b", // lighter thick border
-              width: 3
-            }
-          }
-        },
-        {
-          value: "Grill",
-          label: "Grill",
-          symbol: {
-            type: "simple-marker",
-            style: "diamond",
-            size: 9,
+            size: 7,
             color: colors.darkBrown,
             outline: {
               color: "#20110f",
-              width: 1.5
+              width: 1,
             }
           }
         },
@@ -280,56 +494,12 @@ require([
           value: "Swing",
           label: "Swing",
           symbol: {
-            type: "simple-marker",
-            style: "cross",
-            size: 10,
-            color: "#f4b183",
-            outline: {
-              color: "#20110f",
-              width: 1.5
-            }
-          }
-        },
-        {
-          value: "Bike Parking",
-          label: "Bike Parking",
-          symbol: {
-            type: "simple-marker",
-            style: "x",
-            size: 10,
-            color: colors.darkestGreen,
-            outline: {
-              color: "#20110f",
-              width: 1.5
-            }
-          }
-        },
-        {
-          value: "Basketball Hoop",
-          label: "Basketball Hoop",
-          symbol: {
-            type: "simple-marker",
-            style: "triangle",
-            size: 10,
-            color: colors.accentOrange,
-            outline: {
-              color: "#20110f",
-              width: 1.5
-            }
-          }
-        },
-        {
-          value: "Soccer Goal",
-          label: "Soccer Goal",
-          symbol: {
-            type: "simple-marker",
-            style: "diamond",
-            size: 10,
-            color: "#f9d66d",
-            outline: {
-              color: "#20110f",
-              width: 1.5
-            }
+            type: "picture-marker",
+            url: "assets/maybe/swing.png",
+            width: "40px",
+            height: "24px",
+            angle: 85,
+            xoffset: 5
           }
         },
         {
@@ -338,7 +508,7 @@ require([
           symbol: {
             type: "simple-marker",
             style: "circle",
-            size: 11,
+            size: 0,
             color: "#f0463a",
             outline: {
               color: "#20110f",
@@ -360,28 +530,59 @@ require([
     grassOuter,
     grassMiddle,
     grassInner,
+    detailsLayer,
     buildingLayer,
     DetailLines,
-    assetsLayer
+    assetsLayer,
+    assetsLayer2,
   ]);
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//   Not sure what all this is 
+//   set all the picture marker sizes @ zoom lvl 1&2
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  var btn1 = document.getElementById("zoom1");
-  var btn2 = document.getElementById("zoom2");
-  var lostBtn = document.getElementById("lostBtn");
+var pictureMarkerLayers = [detailsLayer, assetsLayer2, assetsLayer];
 
-  if (btn1) {
-    btn1.classList.add("active");
-  }
+var baseRenderers = pictureMarkerLayers.map(function (layer) {
+  return layer.renderer && layer.renderer.clone
+    ? layer.renderer.clone()
+    : layer.renderer;
+});
+function scaleAllPictureMarkers(factor) {
+  pictureMarkerLayers.forEach(function (layer, idx) {
+    var baseRenderer = baseRenderers[idx];
+    if (!layer || !baseRenderer) return;
 
-  view.when(function () {
+    var r = baseRenderer.clone ? baseRenderer.clone() : baseRenderer;
+    if (!r.uniqueValueInfos) {
+      layer.renderer = r;
+      return;
+    }
 
-    // Save the "home" center so we can always snap back to it
-    var homeCenter = view.center.clone();
+    r.uniqueValueInfos.forEach(function (info) {
+      var sym = info.symbol;
+      if (!sym || sym.type !== "picture-marker") return;
 
-    // BLOCK all other zoom methods
+      var w = sym.width;
+      var h = sym.height;
+
+      if (typeof w === "string") w = parseFloat(w);
+      if (typeof h === "string") h = parseFloat(h);
+      if (isNaN(w) || isNaN(h)) return;
+
+      sym.width = w * factor;
+      sym.height = h * factor;
+    });
+
+    layer.renderer = r;
+  });
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  View.when!!!! omg #@#!)@#)!@($!@(#)!@#__%$(%$#__>>>>))
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+view.when(function () {
+
+   // ~~~~~~~~~~~~~~~~~~block esri default zooms and selection~~~~~~~~~~~~~~~~~~~~~~~
     view.on("mouse-wheel", function (event) {
       event.stopPropagation();
     });
@@ -400,92 +601,76 @@ require([
         event.stopPropagation();
       }
     });
+
     view.on("click", function (event) {
-      // keep default map behavior from doing anything weird
-      event.stopPropagation();
+  event.stopPropagation();
+});
 
-      // check what was clicked
-      view.hitTest(event).then(function (response) {
-        if (!response || !response.results || response.results.length === 0) {
-          return; // clicked empty map, no sound
-        }
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//   Zoom button rules (+ lost button @ end)
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  var btn1 = document.getElementById("zoom1");
+  var btn2 = document.getElementById("zoom2");
+  var lostBtn = document.getElementById("lostBtn");
 
-        // OPTIONAL: only play sound if it's from assetsLayer
-        var featureHit = response.results.find(function (result) {
-          return result.graphic && result.graphic.layer === assetsLayer;
-        });
+  if (btn1) {
+    btn1.classList.add("active");
+  }
 
-        if (featureHit) {
-          var squick = document.getElementById("squickSound");
-          if (squick) {
-            squick.playbackRate = 0.9 + Math.random() * 0.3; // 0.9–1.2x speed
-            squick.currentTime = 0; // rewind so rapid clicks still work
-            squick.play();
-          }
-        }
-      });
-    });
+    var homeCenter = view.center.clone(); //lost button = center
 
     var scaleOut = 1200; // button 1
     var scaleMid = 425; // button 2
 
-    function goToScale(scale) {
-      view.goTo({
-        scale: scale
-      }, {
+function goToScale(scale) {
+  view.goTo(
+    { scale: scale },
+    { animate: true }
+  );
+}
+
+// Zoom button 1
+if (btn1) {
+  btn1.addEventListener("click", function () {
+    goToScale(scaleOut);
+
+    btn1.classList.add("active");
+    if (btn2) btn2.classList.remove("active");
+
+    // reset pics
+    scaleAllPictureMarkers(1);
+  });
+}
+
+// Zoom button 2
+if (btn2) {
+  btn2.addEventListener("click", function () {
+    goToScale(scaleMid);
+
+    if (btn1) btn1.classList.remove("active");
+    btn2.classList.add("active");
+
+    // make pics big
+    var factor = 3.3;
+    scaleAllPictureMarkers(factor);
+  });
+}
+
+// lost button centers map
+if (lostBtn) {
+  lostBtn.addEventListener("click", function () {
+    view.goTo(
+      {
+        center: homeCenter,
+        scale: view.scale // keep current zoom level
+      },
+      {
         animate: true
-      });
-    }
+      }
+    );
+  });
+}
 
-    function setTrashcanSize(size) {
-      var renderer = assetsLayer.renderer.clone
-        ? assetsLayer.renderer.clone()
-        : assetsLayer.renderer;
-
-      renderer.uniqueValueInfos.forEach(function (info) {
-        if (info.value === "Trashcan" && info.symbol) {
-          info.symbol.size = size;
-        }
-      });
-
-      assetsLayer.renderer = renderer;
-    }
-	  
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//   Button rules
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Zoom button 1
-    if (btn1) {
-      btn1.addEventListener("click", function () {
-        goToScale(scaleOut);
-        setTrashcanSize(9);
-
-        btn1.classList.add("active");
-        if (btn2) btn2.classList.remove("active");
-      });
-    }
-    // center map if lost button is clicked
-    if (lostBtn) {
-      lostBtn.addEventListener("click", function () {
-        view.goTo({
-          center: homeCenter,
-          scale: view.scale // but dont reset the zoom lvl
-        }, {
-          animate: true
-        });
-      });
-    }
-
-    // Zoom button 2
-    if (btn2) {
-      btn2.addEventListener("click", function () {
-        goToScale(scaleMid);
-        setTrashcanSize(12);
-
-        if (btn1) btn1.classList.remove("active");
-        btn2.classList.add("active");
-      });
-    }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //   Sprayground Gif
@@ -504,27 +689,23 @@ require([
       var screenPoint = view.toScreen(sprayPoint);
       if (!screenPoint) return;
 
-      // use actual element size if available
       var w = sprayDiv.offsetWidth || 90;
       var h = sprayDiv.offsetHeight || 90;
 
-      // bottom-center anchor
       sprayDiv.style.left = (screenPoint.x - w / 2) + "px";
       sprayDiv.style.top = (screenPoint.y - h + 20) + "px";
     }
 
-    // keep GIF aligned as view changes
     view.watch("extent", updateSprayPos);
     view.watch("rotation", updateSprayPos);
     view.watch("zoom", updateSprayPos);
 
-    // initial placement
     updateSprayPos();
   });
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//   Googly Eyes 
+//   Googly Eyes !!!
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (function () {
   var eyesContainer = document.getElementById("eyesContainer");
@@ -588,3 +769,108 @@ function fitAppToScreen() {
 
 window.addEventListener('load', fitAppToScreen);
 window.addEventListener('resize', fitAppToScreen);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Comment panel popup + google form
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(function () {
+  const btn = document.getElementById("commentpanelBtn");
+  const overlay = document.getElementById("commentPanelOverlay");
+  const closeBtn = document.getElementById("commentPanelClose");
+  const form = document.getElementById("commentForm");
+  const box = document.getElementById("commentMessage");
+  const status = document.getElementById("commentStatus");
+
+  const FORM_URL =
+  "https://docs.google.com/forms/d/1MzcN6wR_s4q7xu4a0PLoYzULIDr7yqaWUIQrdROB6lY/formResponse";
+  const ENTRY_ID = "entry.87422985";
+
+  if (!btn || !overlay || !form || !box) return;
+
+  // stat bubble
+  function setStatus(message, type) {
+    if (!status) return;
+
+    status.textContent = message || "";
+
+    status.classList.remove("status-ok", "status-error", "status-visible");
+
+    if (message) {
+      if (type === "ok") {
+        status.classList.add("status-ok");
+      } else if (type === "error") {
+        status.classList.add("status-error");
+      }
+      status.classList.add("status-visible");
+
+      setTimeout(() => {
+        status.classList.remove("status-visible");
+      }, 3500);
+    }
+  }
+
+  // button opens window!
+  btn.addEventListener("click", () => {
+    overlay.classList.remove("comment-hidden");
+    box.focus();
+    setStatus("", null); // clear old msgs
+  });
+
+  // closes windoe
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      overlay.classList.add("comment-hidden");
+    });
+  }
+
+  // send
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const text = box.value.trim();
+    if (!text) {
+      setStatus("Hey! You didn't type anything!", "error");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append(ENTRY_ID, text);
+
+    fetch(FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    })
+      .then(() => {
+        box.value = "";
+        setStatus("Submitted! I'm really gonna read that!", "ok");
+      })
+      .catch(() => {
+        setStatus("Something bad happened and it did not work :(", "error");
+      });
+  });
+})();
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Squick SOund!
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+document.addEventListener("click", function (evt) {
+  const tag = evt.target.tagName.toLowerCase();
+
+  playSquick();
+});
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  MUTE BUTTON because its actually sooo annoying
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const muteBtn = document.getElementById("muteBtn");
+
+if (muteBtn) {
+  muteBtn.addEventListener("click", () => {
+    isMuted = !isMuted;
+
+    muteBtn.textContent = isMuted ? "unmute!" : "MUTE!!";
+
+    muteBtn.style.backgroundColor = isMuted ? "#e0ad9e" : "#dcb98a";
+  });
+}

@@ -5,10 +5,8 @@
   <title>Shelby Park Map</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- STYLES -->
-  <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css" />
 
-  <!-- ArcGIS Maps SDK (defines global "require") -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />
   <script src="https://js.arcgis.com/4.30/"></script>
 </head>
@@ -36,6 +34,7 @@
 	<audio id="squickSound" src="assets/squick_1.wav" preload="auto"></audio>
 
 	<img src="assets/icons/flowerstem.png" id="flowerStem">
+  <img src="assets/maybe/byfor.png" id="byFor">
 	
 <div id="zoomControls">
   <div class="zoom-label">Zoom!</div>
@@ -51,17 +50,52 @@
   </div>
 </div>
 
+<div id="commentPanelButton">
+  <button id="commentpanelBtn" class="commentpanel-btn">
+     <img src="assets/maybe/mail.png" alt="commentPanelButton icon" />
+      </button>
+</div>
+
+<div id="mutePanel">
+  <button id="muteBtn" class="mute-btn">MUTE!!</button>
+</div>
+
+      <div id="commentPanelOverlay" class="comment-overlay comment-hidden">
+        <div class="comment-panel">
+          <div class="comment-panel-header">
+            <span>Leave me a message!</span>
+            <button id="commentPanelClose" class="panel-close-btn" type="button">×</button>
+          </div>
+
+<form id="commentForm">
+  <textarea
+    id="commentMessage"
+    name="entry.87422985"
+    rows="5"
+    placeholder="Messages, comments, feedback, secrets..."
+  ></textarea>
+
+  <div id="commentStatus" class="comment-status"></div>
+
+  <div class="comment-panel-footer">
+    <button type="submit" class="comment-submit-btn">
+      Send
+    </button>
+  </div>
+</form>
+
+        </div>
+      </div>
+
 <div id="titlePanel">
   <img src="assets/icons/shelbytitle.png" id="titleImage">
 </div>
-		
+
 </div>
 </div>
-	
-<!-- IMPORTANT: must come AFTER the ArcGIS script --> 
+	 
 <script src="main.js?v=3"></script>
 
-<!-- NEW: scale the whole appFrame to fit the screen -->
 <script>
   function fitAppToScreen() {
     const app = document.getElementById('appFrame');

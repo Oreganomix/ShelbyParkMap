@@ -22,16 +22,16 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: "Inter", sans-serif;
-  background-color: var(--backgroundColor); /* warm paper background */
-  overflow: hidden; /* important: no page scrolling, we scale instead */
+  background-color: var(--backgroundColor);
+  overflow: hidden;
 }
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    look good on dif screens
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #scaleWrapper {
   position: fixed;
-  inset: 0; /* fill the viewport */
-  background-color: var(--backgroundColor); /* same as your body bg */
+  inset: 0;
+  background-color: var(--backgroundColor);
   overflow: hidden;
 }
 
@@ -43,7 +43,7 @@ html, body {
   height: 1279px;
   box-sizing: border-box;
   transform-origin: center;
-  /* border for testing - comment out */
+  /* border for testing!!!! comment out! */
   /* border: 2px solid magenta; */
 }
 
@@ -80,40 +80,40 @@ html, body {
   text-align: center;
   text-transform: none;
   letter-spacing: 1px;
-  color: #9f7365; /* rich reddish-brown */
-  text-shadow: 2px 2px #e8cfa6; /* soft cream shadow */
+  color: #9f7365;
+  text-shadow: 2px 2px #e8cfa6;
 }
 .zoom-button-row {
   display: flex;
   justify-content: space-between;
   gap: 8px;
 }
-/* buttons - round */
+/* zoom buttons - round */
 .zoom-btn {
   width: 34px;
   height: 34px;
   border-radius: 50%;
   border: 3px solid #f3e5c2; /* border + numbers */
-  background-color: #e8cfa6; /* warm orange */
+  background-color: #e8cfa6;
   box-shadow: 0 0 0 1px #c49b71 /* outline */, -2px 4px 1px #b68962;/* shadow */
   cursor: pointer;
   padding: 0;
   font-size: 16px;
   font-weight: 800;
-  color: #b68962; /* matching brown */
+  color: #b68962;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .zoom-btn:hover {
-  background-color: #f3d9b5; /* pastel peach highlight */
+  background-color: #f3d9b5;
 }
 .zoom-btn:active {
   transform: translateY(2px);
   background-color: #b68962 !important;
   box-shadow: 0 0 0 2px #b68962, /* outline */
 }
-/* highlight selected button */
+/* make selected button green number */
 .zoom-btn.active {
   color: #78a158 !important;
 }
@@ -121,7 +121,7 @@ html, body {
   color: #a4c263 !important;
 }
 
-/* ~~~~~~sprayground gif? idk i didnt label this when i put it in here now i forgot~~~~~~~ */
+/* ~~~~~~sprayground gif? idk i didnt label this when i put it in here now i forgot which one its for~~~~~~~ */
 #gifOverlay {
   position: absolute;
   pointer-events: none;
@@ -164,13 +164,278 @@ html, body {
   transition: all 0.1s ease;
 }
 .lost-btn:hover {
-  background-color: #D48A8A; /* hover fill */
+  background-color: #D48A8A;
 }
 .lost-btn:active {
   background-color: #965270 !important;
   transform: translate(-1px, 2px);
   box-shadow: 0 0 0 2px #bd7575; /* outline */
 }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   MUTE!!
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#mutePanel {
+  position: absolute;
+  top: 200px;
+  right: 20px;
+  z-index: 999;
+
+  padding: 10px 12px;
+  background-color: #dcb98a;
+  border: 3px solid #b68962;
+  border-radius: 10px;
+  box-shadow: 3px 5px 0 #9f7365;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: scale(1.5);
+  transform-origin: top right;
+}
+
+.mute-btn {
+  width: 100px;
+  height: 50px;
+
+  background-color: #e8cfa6;
+  border: 3px solid #f3e5c2;
+  border-radius: 12px;
+
+  font-size: 20px;
+  font-weight: 700;
+  color: #976150;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 0 2px #c49b71 /* outline */, 3px 4px 1px #b68962;/* shadow */
+
+  transition: all 0.1s ease;
+}
+
+.mute-btn:hover {
+  background-color: #f3d9b5;
+}
+
+.mute-btn:active {
+  transform: translate(-1px, 2px);
+  box-shadow: 0 0 0 2px #b68962;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Comment Box
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#commentPanelButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+
+  padding: 12px 14px;
+  background-color: #dcb98a;
+  border: 3px solid #b68962;
+  border-radius: 10px;
+  box-shadow: 3px 5px 0 #9f7365;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: scale(1.47);
+  transform-origin: top right;
+}
+
+.commentpanel-btn {
+  width: 100px;
+  height: 80px;
+  border-radius: 20%; 
+  padding: 0;
+
+  background-color: #e8cfa6;
+  border: 3px solid #f3e5c2;
+
+  box-shadow:
+    0 0 0 2px #c49b71,
+    2px 4px 1px #b68962;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.1s ease,
+              box-shadow 0.1s ease,
+              background-color 0.1s ease;
+}
+
+.commentpanel-btn img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.commentpanel-btn:hover {
+  background-color: #f3d9b5;
+  box-shadow:
+    0 0 0 2px #c49b71,
+    2px 4px 1px #b68962;
+}
+.commentpanel-btn:active {
+  background-color: #9f7365 !important;
+  transform: translate(-1px, 2px);
+  box-shadow: 0 0 0 2px #b68962; /* outline */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~Comment Popup!~~~~~~~~~~~~~~~~~~ */
+
+.comment-overlay {
+  position: absolute;
+  inset: 0; 
+  background: rgba(75, 68, 36, 0.35);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment-hidden {
+  display: none;
+}
+
+.comment-panel {
+  width: 600px;
+  max-width: 95%;
+  background-color: var(--lightBrown);
+  border: 7px solid var(--middleBrown);
+  border-radius: 14px;
+  box-shadow: -8px 10px 0 var(--darkBrown);
+  padding: 14px 18px;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  position: relative;
+  z-index: 100000;
+}
+
+.comment-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.comment-panel-header span {
+  font-size: 30px;
+  font-weight: 800;
+  color: #976150;
+  text-shadow: 2px 2px #e8cfa6;
+}
+
+.panel-close-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #b68962;
+  background-color: #f3d9b5;
+  color: #976150;
+  font-size: 30px;
+  font-weight:800;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px #c49b71 /* outline */, -2px 4px 1px #b68962;/* shadow */
+  padding: 0;
+}
+
+.panel-close-btn:hover {
+  background-color: #fce2bf;
+}
+
+.panel-close-btn:active {
+  transform: translate(-1px, 1px);
+  box-shadow: 0 1px 0 #9f7365;
+}
+
+#commentForm {
+  margin-top: 6px;
+}
+
+#commentMessage {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 4px solid #c49a6c;
+  padding: 8px 10px;
+  font-size: 20px;
+  resize: vertical;
+  min-height: 10px;
+  max-height: 260px;
+  background-color: #f6f2dd;
+  color: #3a2b20;
+}
+
+.comment-panel-footer {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-submit-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 3px solid #8a4f4f;
+  background-color: #bd7575;
+  color: #f4dbd4;
+  font-size: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px #bd7575/* outline */, -3px 5px 1px #b68962; /* shadow */;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+}
+
+.comment-submit-btn:hover {
+  background-color: #d48a8a;
+}
+
+.comment-submit-btn:active {
+  transform: translate(-1px, 2px);
+  box-shadow: 0 1px 0 #b68962;
+}
+
+.comment-status {
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #7e3b1d;
+  min-height: 20px;
+  text-shadow: 1px 1px #f3d9b5;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background-color: transparent;
+  color: #7e3b1d;
+  text-shadow: 1px 1px #f3d9b5;
+
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.18s ease, transform 0.18s ease,
+              background-color 0.18s ease, color 0.18s ease;
+}
+
+.comment-status.status-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.comment-status.status-ok {
+  background-color: #d7f3c5;
+  color: #31743a;
+}
+
+.comment-status.status-error {
+  background-color: #fbd0d6;
+  color: #a33142;;
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    Shelby Park Title Box
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -213,7 +478,6 @@ html, body {
   pointer-events: none; /* don't block stuff */
   z-index: 80;
 }
-/* each eyeball */
 #eyesContainer .eye {
   width: 70px;
   height: 60px;
@@ -243,6 +507,18 @@ html, body {
   bottom: 40px;
   left: 20px;
   width: auto;
-  height: 650px; /* change size */
+  height: 650px;
   z-index: 50;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   by me for u :)
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#byFor {
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  width: auto;
+  height: 300px;
+  z-index: 50;
+  transform: rotate(-15deg);
 }
